@@ -1,0 +1,9 @@
+{
+  "name": "vsf-salesforce",
+  "version": "1.0.0",
+  "description": "Sales Force Vue Store Front",
+  "main": "index.js",
+  "repository": "https://github.com/elsiosanchez/vsf-salesforce.git",
+  "author": "elsiossanchez <elsiossanches@gmail.com>",
+  "license": "MIT"
+}
