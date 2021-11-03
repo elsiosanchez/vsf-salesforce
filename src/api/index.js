@@ -1,4 +1,5 @@
 import config from 'config'
+const axios = require('axios').default
 
 /**
 * Instance for connection to API RESTful with axios
@@ -16,7 +17,8 @@ export function ApiRest ({
   method = 'post',
   data = {},
   params = {},
-  responseType = 'json'
+  responseType = 'json',
+  endPoint
 }) {
   const setInterceptor = (request) => {
     request.interceptors.response.use(response => {
@@ -26,12 +28,9 @@ export function ApiRest ({
     })
     return request.interceptors
   }
-  const baseURL = config.api.url + config.api.base
-  const axios = require('axios')
-
+  const baseURL = endPoint
   const request = axios.create({
     baseURL,
-    // timeout: 10000, // 10s
     headers: {
       'Content-Type': 'application/json;charset=UTF-8'
     },

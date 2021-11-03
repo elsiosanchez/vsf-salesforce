@@ -2,44 +2,35 @@ import {
   ApiRest as requestRest,
   evaluateResponse
 } from './api/index.js'
-export function generateListBank () {
+import config from 'config'
+
+export function listAddressBusinessPartners (searchValue) {
   return requestRest({
-    url: '/list-banks',
-    method: 'post',
-    data: {
-      table_name: 'C_Bank'
-    },
+    endPoint: config.shipping.sales_force.endpoint,
+    url: 'customer',
+    method: 'get',
     params: {
-      token: 'ae9cf607-d591-4094-9379-e04a2d48695b'
+      search_value: searchValue,
+      token: '2071434c-8425-4f7f-ac12-bb94f1f174e1'
     }
   })
     .then(evaluateResponse)
     .then(response => {
-      return {
-        recordCount: response.record_count,
-        banks: response.banks,
-        nextPageToken: response.next_page_token
-      }
+      return response
     })
 }
-export function generateListCurrencies () {
+export function generateBusinessPartners (searchValue) {
   return requestRest({
-    url: '/list-currencies',
-    method: 'post',
-    data: {
-      table_name: 'C_Bank'
-    },
+    url: 'business-partners',
+    endPoint: config.shipping.sales_force.list_business_partners,
+    method: 'get',
     params: {
-      token: 'ae9cf607-d591-4094-9379-e04a2d48695b'
+      search_value: searchValue,
+      token: '2071434c-8425-4f7f-ac12-bb94f1f174e1'
     }
   })
     .then(evaluateResponse)
     .then(response => {
-      return {
-        recordCount: response.record_count,
-        currencies: response.currencies,
-        nextPageToken: response.next_page_token
-      }
+      return response
     })
 }
- 

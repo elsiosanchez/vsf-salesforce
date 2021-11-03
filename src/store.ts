@@ -1,53 +1,59 @@
-import { generateListBank, generateListCurrencies } from './listBanks.js'
-// import { generateListCurrencies } from './listBanks.js'
+import { listAddressBusinessPartners, generateBusinessPartners } from './listBanks.js'
 export const customPaymentStore = {
   state: {
-    listBanks: {},
-    listCurrencies: {},
-    otherPaymentDetails: {}
+    listAddress: [],
+    listBusinessPartners: {},
+    otherPaymentDetails: {},
+    currentCustomerAddress: {}
   },
   mutations: {
     setTransferDetails: (state, payload) => {
       state.otherPaymentDetails = payload
     },
-    listBanks: (state, payload) => {
-      state.listBanks = payload
+    setListAddress: (state, payload) => {
+      state.listAddress = payload
     },
-    listCurrencies: (state, payload) => {
-      state.listCurrencies = payload
+    setListBusinessPartners: (state, list) => {
+      state.listBusinessPartners = list
+    },
+    setCustomerAddress: (state, address) => {
+      state.currentCustomerAddress = address
     }
   },
   actions: {
     setDetails ({ commit }, transferDetails) {
       commit('setTransferDetails', transferDetails)
     },
-    setListBanck ({ commit }) {
-      return generateListBank()
+    listAddressCustomer ({ commit }, searchValue) {
+      return listAddressBusinessPartners(searchValue)
         .then(response => {
-          commit('listBanks', response.banks)
+          commit('setListAddress', response.addresses)
           return response
         })
         .catch(error => {
           console.warn(`Error getting banks: ${error.message}. Code: ${error.code}.`)
         })
     },
-    setListCurrencies ({ commit }) {
-      return generateListCurrencies()
+    listBusinessPartners ({ commit }, searchValue) {
+      return generateBusinessPartners(searchValue)
         .then(response => {
-          commit('listCurrencies', response.currencies)
-          return response
+          commit('setListBusinessPartners', response.records)
+          return response.records
         })
         .catch(error => {
-          console.warn(`Error getting list currencies: ${error.message}. Code: ${error.code}.`)
+          console.warn(`Error getting banks: ${error.message}. Code: ${error.code}.`)
         })
     }
   },
   getters: {
-    getBank: (state) => {
-      return state.listBanks
+    getListAddress: (state) => {
+      return state.listAddress
     },
-    getListCurrencies: (state) => {
-      return state.listCurrencies
+    getCustomerAddress: (state) => {
+      return state.currentCustomerAddress
+    },
+    getListBusinessPartners: (state) => {
+      return state.listBusinessPartners
     },
     getOtherPaymentDetail: (state) => {
       return state.otherPaymentDetails

@@ -5,5 +5,8 @@
   "main": "index.js",
   "repository": "https://github.com/elsiosanchez/vsf-salesforce.git",
   "author": "elsiossanchez <elsiossanches@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "axios": ">=0.21.1"
+  }
 }
